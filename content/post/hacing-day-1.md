@@ -5,4 +5,4 @@ draft = false
 +++
 
 
-ini merupakan hacking tahap 1 yang di lakukan dalam hal yang sama
+ini merupakan hacking tahap 1 yang di lakukan dalam hal yang sama ist same day
