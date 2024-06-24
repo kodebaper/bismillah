@@ -209,6 +209,6 @@ lineNos = true
 lineNumbersInTable = true
 tabWidth = 4
 
-# config.toml
-[[module.imports]]
-path = "github.com/CaiJimmy/hugo-theme-stack/v3"
+[security]
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$', 'WC_POST_CSS']
