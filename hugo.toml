@@ -212,3 +212,13 @@ tabWidth = 4
 [security]
   [security.funcs]
     getenv = ['^HUGO_', '^CI$', 'WC_POST_CSS']
+
+
+[build]
+publish = "public"
+command = "hugo --gc --minify"
+
+[context.production.environment]
+HUGO_VERSION = "0.120.3"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"
