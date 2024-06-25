@@ -50,8 +50,12 @@ The following is a complete list:
 - [x] Bulid, deployment and serverless backend by minify
 - [x] Email Management by Sendinblue and CloudFlare
 - [x] application for writing articles using VScode
-- [x] this blog theme is a custom theme from PEHTEME HUgo
+- [x] this blog USING theme from **THEME STACK By jimmy**
+
+Thanks Jimmy, i like your theme [**THEME STACK By jimmy**](https://github.com/CaiJimmy/hugo-theme-stack/)
  
 While this is all I remember a series of technologies from this blog, and I don't want to switch to other technologies or add other features to this blog in the near future because the blog that I currently use is sufficient to support my personal documentation needs through writing and blog media.
 
 That's all for this article, thank you for reading it!
+
+Contact me or Collaboration Let's see my -->  [**PORTFOLIO**](https://dimassetiyadi.netlify.app/)

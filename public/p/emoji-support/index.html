@@ -10,10 +10,10 @@
 <meta property='og:description' content="Guide to emoji usage in Hugo">
 <meta property='og:url' content='http://localhost:1313/p/emoji-support/'>
 <meta property='og:site_name' content='santricyber'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='emoji' /><meta property='article:published_time' content='2019-03-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-03-05T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='hacking' /><meta property='article:tag' content='information-gathering' /><meta property='article:tag' content='ethical-hacking' /><meta property='article:tag' content='pentester' /><meta property='article:published_time' content='2019-03-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2019-03-05T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/p/emoji-support/recon3.jpg' />
 <meta name="twitter:title" content="Emoji Support">
 <meta name="twitter:description" content="Guide to emoji usage in Hugo"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg' />
+    <meta name="twitter:image" content='http://localhost:1313/p/emoji-support/recon3.jpg' />
   
 
 
@@ -279,10 +279,10 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/p/emoji-support/">
-                <img src="/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash_huf941de4769045cdfa8c9ee7036519a2a_35369_800x0_resize_q75_box.jpg"
-                        srcset="/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash_huf941de4769045cdfa8c9ee7036519a2a_35369_800x0_resize_q75_box.jpg 800w, /p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash_huf941de4769045cdfa8c9ee7036519a2a_35369_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/p/emoji-support/recon3_hu889f54b6541cd963dfcd75a2f95f6ed5_38566_800x0_resize_q75_box.jpg"
+                        srcset="/p/emoji-support/recon3_hu889f54b6541cd963dfcd75a2f95f6ed5_38566_800x0_resize_q75_box.jpg 800w, /p/emoji-support/recon3_hu889f54b6541cd963dfcd75a2f95f6ed5_38566_1600x0_resize_q75_box.jpg 1600w"
                         width="800" 
-                        height="566" 
+                        height="450" 
                         loading="lazy"
                         alt="Featured image of post Emoji Support" />
                 
@@ -294,8 +294,16 @@
     
     <header class="article-category">
         
-            <a href="/categories/test/" style="background-color: #2a9d8f; color: #fff;">
-                Test
+            <a href="/categories/cyber-security/" >
+                Cyber-Security
+            </a>
+        
+            <a href="/categories/redteam/" >
+                Redteam
+            </a>
+        
+            <a href="/categories/recon/" >
+                Recon
             </a>
         
     </header>
@@ -344,7 +352,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    2 minute read
                 </time>
             </div>
         
@@ -359,30 +367,78 @@
     <section class="article-content">
     
     
-    <p>Emoji can be enabled in a Hugo project in a number of ways.</p>
-<p>The <a class="link" href="https://gohugo.io/functions/emojify/"  target="_blank" rel="noopener"
-    ><code>emojify</code></a> function can be called directly in templates or <a class="link" href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes"  target="_blank" rel="noopener"
-    >Inline Shortcodes</a>.</p>
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site&rsquo;s <a class="link" href="https://gohugo.io/getting-started/configuration/"  target="_blank" rel="noopener"
-    >configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
-<p><span class="nowrap"><span class="emojify">🙈</span> <code>:see_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙉</span> <code>:hear_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙊</span> <code>:speak_no_evil:</code></span></p>
-<br>
-<p>The <a class="link" href="http://www.emoji-cheat-sheet.com/"  target="_blank" rel="noopener"
-    >Emoji cheat sheet</a> is a useful reference for emoji shorthand codes.</p>
-<hr>
-<p><strong>N.B.</strong> The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.</p>
+    <p>At this stage of the ethical hacking series, I will share the source code for how to make the IP Checker tool using the Python programming language on our Kali Linux operating system. Making this tool also aims at Information Gathering to find the IP address of a website and the geolocation of the server where the target website is placed.</p>
+<p>we simply create a file with the name we want with the file extension <strong>[.py]</strong> in this case I gave my file name <strong>[checker.py]</strong>  The contents of this file are as follows</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">.emoji {
-</span></span><span class="line"><span class="cl">  font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">import</span> <span class="n">socket</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">requests</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">pprint</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">json</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">hostname</span> <span class="o">=</span> <span class="n">input</span><span class="p">(</span><span class="s1">&#39;Enter a domain name&#34; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ip_address</span> <span class="o">=</span>  <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">hostname</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">request_url</span> <span class="o">=</span> <span class="s1">&#39;&lt;https://geolocation-db.com/jsonp/&gt;&#39;</span> <span class="o">+</span> <span class="n">ip_address</span>
+</span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span>  <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">geolocation</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">geolocation</span> <span class="o">=</span> <span class="n">geolocation</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;(&#34;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&#34;)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">geolocation</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geolocation</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">geolocation</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; : &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
+</div><p>after files checker.py is already filled with lines of code as above, then save and it&rsquo;s time to check whether the tools we have created can run properly.
+what we need to do first we have to move to the directory where the checker.py is created, in this case, I put my files in the Documents directory
+then we input this command in the</p>
+<p><strong>$ python terminal checker.py</strong> then we enter the name of the target website and the results are as below.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌──(infosec㉿infosec)-[~/Documents]
+</span></span><span class="line"><span class="cl">└─$ python checker[.py](&lt;http://geoloc.py/&gt;)
+</span></span><span class="line"><span class="cl">Enter a domain name&#34; [kominfo.go.id](&lt;http://kominfo.go.id/&gt;)
+</span></span><span class="line"><span class="cl">&#39;country_code : US&#39;
+</span></span><span class="line"><span class="cl">&#39;country_name : United States&#39;
+</span></span><span class="line"><span class="cl">&#39;city : None&#39;
+</span></span><span class="line"><span class="cl">&#39;postal : None&#39;
+</span></span><span class="line"><span class="cl">&#39;latitude : 37.751&#39;
+</span></span><span class="line"><span class="cl">&#39;longitude : -97.822&#39;
+</span></span><span class="line"><span class="cl">&#39;IPv4 : 45.60.36.49&#39;
+</span></span><span class="line"><span class="cl">&#39;state : None&#39;
+</span></span></code></pre></td></tr></table>
 </div>
+</div><p>from the results above we can see some complete information such as IP address or geo-location. Until the discussion of this article is here, I will continue the discussion of information gathering in the next article</p>
+
 </section>
 
 
@@ -390,7 +446,13 @@
     
     <section class="article-tags">
         
-            <a href="/tags/emoji/">Emoji</a>
+            <a href="/tags/hacking/">Hacking</a>
+        
+            <a href="/tags/information-gathering/">Information-Gathering</a>
+        
+            <a href="/tags/ethical-hacking/">Ethical-Hacking</a>
+        
+            <a href="/tags/pentester/">Pentester</a>
         
     </section>
 
@@ -424,23 +486,47 @@
             
                 
 <article class="has-image">
-    <a href="/p/placeholder-text/">
+    <a href="/p/ethical-hacking/">
         
         
             <div class="article-image">
-                <img src="/p/placeholder-text/_hu958d513eeefe5556a31d065479ecc5ac_14205_7bffa90d1e66ca9b8184fda08a99dc7e.jpg" 
+                <img src="/p/ethical-hacking/pentest1.4b23f453d9a029c9a0cb787f3c964d00_hu9e03b6392363072fc6440fea7388e812_32608_250x150_fill_box_smart1_3.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post Placeholder Text"
+                        alt="Featured image of post Ethical Hacking"
                         
-                        data-hash="md5-jq4GZk3fs&#43;jcbgAHVstwOw==">
+                        data-hash="md5-SyP0U9mgKcmgy3h/PJZNAA==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Placeholder Text</h2>
+            <h2 class="article-title">Ethical Hacking</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/penetration-testing-note-for-me/">
+        
+        
+            <div class="article-image">
+                <img src="/p/penetration-testing-note-for-me/me.33e5cd3ce990ca9ee247bbec060627c3_hu2fa0f972f2a23c170cfe7885956551df_168710_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Penetration Testing Note for me"
+                        
+                        data-hash="md5-M&#43;XNPOmQyp7iR7vsBgYnww==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Penetration Testing Note for me</h2>
         </div>
     </a>
 </article>
