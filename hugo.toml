@@ -1,7 +1,7 @@
 baseurl = "https://www.santricyber.com"
 languageCode = "en-us"
 theme = "hugo-theme-stack"
-paginate = 9
+paginate = 10
 title = "santricyber"
 copyright = "santricyber"
 DefaultContentLanguage = "en"
@@ -42,7 +42,7 @@ weight = 3
   description = "وصف تجريبي"
 
 [services.disqus]
-shortname = "hugo-theme-stack"
+shortname = "santricyber"
 
 [services.googleAnalytics]
 
@@ -69,7 +69,7 @@ rssFullContent = true
     [params.sidebar.avatar]
     enabled = true
     local = true
-    src = "img/iconku.png"
+    src = "img/fixicon.png"
 
   [params.article]
   math = false
@@ -78,7 +78,7 @@ rssFullContent = true
 
     [params.article.license]
     enabled = true
-    default = "Licensed under CC BY-NC-SA 4.0"
+    default = "Licensed under santricyber"
 
   [params.comments]
   enabled = true
