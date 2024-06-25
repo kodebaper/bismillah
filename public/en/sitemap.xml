@@ -20,8 +20,11 @@
                 href="http://localhost:1313/"
                 />
   </url><url>
+    <loc>http://localhost:1313/categories/bloging/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -37,6 +40,94 @@
                 hreflang="en"
                 href="http://localhost:1313/categories/"
                 />
+  </url><url>
+    <loc>http://localhost:1313/tags/hugo-static/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/hugo-static/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/post/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/p/preparation-before-deployment-hugo-static-website-to-github-page/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/programming/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/programming/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/static-website/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="http://localhost:1313/zh-cn/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ar"
+                href="http://localhost:1313/ar/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/tags/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/tags/tipstricks/</loc>
+    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/seo-tips-for-hugo-static-website/</loc>
+    <lastmod>2024-06-25T22:11:45+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/solved/</loc>
+    <lastmod>2024-06-25T22:06:26+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/solved-enforce-https-unavailable-for-your-site-on-github/</loc>
+    <lastmod>2024-06-25T22:06:26+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/solved-error-failed-to-push-some-refs-to/</loc>
+    <lastmod>2024-06-25T21:59:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/solved-error-says-to-remove-site-from-gitmodules-but-its-not-there-hugo-submodule-with-papermod/</loc>
+    <lastmod>2024-06-25T21:54:51+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/solved-fatal-not-a-git-repository-or-any-of-the-parent-directories/</loc>
+    <lastmod>2024-06-25T16:29:12+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/svg-path-icon-for-hugo-static-website/</loc>
+    <lastmod>2024-06-25T16:15:00+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/what-is-hugo-static-site-generator/</loc>
+    <lastmod>2024-06-25T16:08:28+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/linux/</loc>
+    <lastmod>2024-06-25T15:55:32+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/linux-tips/</loc>
+    <lastmod>2024-06-25T15:55:32+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/why-i-install-and-learn-ubuntu-in-my-laptop/</loc>
+    <lastmod>2024-06-25T15:55:32+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/why-migrate-to-hugo/</loc>
+    <lastmod>2024-06-25T15:40:54+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/cyber-security/</loc>
     <lastmod>2024-06-25T10:40:13+07:00</lastmod>
@@ -56,42 +147,11 @@
     <loc>http://localhost:1313/tags/pentester/</loc>
     <lastmod>2024-06-25T10:40:13+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/post/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/post/"
-                />
-  </url><url>
     <loc>http://localhost:1313/categories/recon/</loc>
     <lastmod>2024-06-25T10:40:13+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/redteam/</loc>
     <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:1313/zh-cn/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ar"
-                href="http://localhost:1313/ar/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/tags/"
-                />
   </url><url>
     <loc>http://localhost:1313/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
