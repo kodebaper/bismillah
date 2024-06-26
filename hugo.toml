@@ -45,7 +45,7 @@ weight = 3
 shortname = "santricyber"
 
 [services.googleAnalytics]
-googleAnalytics = "G-6J105MLJ1T"
+google_tag_manager = "G-6J105MLJ1T"
 
 [permalinks]
 post = "/p/:slug/"
