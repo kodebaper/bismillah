@@ -21,10 +21,10 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/bloging/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -41,14 +41,17 @@
                 href="http://localhost:1313/categories/"
                 />
   </url><url>
+    <loc>http://localhost:1313/p/how-to-create-an-alternative-article-in-hugo-static-website/</loc>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/hugo-static/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/hugo-static/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -60,20 +63,17 @@
                 href="http://localhost:1313/post/"
                 />
   </url><url>
-    <loc>http://localhost:1313/p/preparation-before-deployment-hugo-static-website-to-github-page/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/programming/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/programming/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/static-website/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-06-25T22:16:19+07:00</lastmod>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -91,6 +91,36 @@
                 />
   </url><url>
     <loc>http://localhost:1313/tags/tipstricks/</loc>
+    <lastmod>2024-06-26T10:07:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/how-to-create-an-open-new-tab-external-link-in-hugo/</loc>
+    <lastmod>2024-06-25T23:17:19+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/cyber-security/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ethical-hacking/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/hacking/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/how-to-tracking-ip-address-with-ping-and-nslookup/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/information-gathering/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/pentester/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/recon/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/redteam/</loc>
+    <lastmod>2024-06-25T22:22:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/preparation-before-deployment-hugo-static-website-to-github-page/</loc>
     <lastmod>2024-06-25T22:16:19+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/p/seo-tips-for-hugo-static-website/</loc>
@@ -129,28 +159,7 @@
     <loc>http://localhost:1313/p/why-migrate-to-hugo/</loc>
     <lastmod>2024-06-25T15:40:54+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/cyber-security/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/p/ethical-hacking/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/ethical-hacking/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/hacking/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/information-gathering/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/pentester/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/recon/</loc>
-    <lastmod>2024-06-25T10:40:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/redteam/</loc>
     <lastmod>2024-06-25T10:40:13+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/archives/</loc>
