@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" is a reconnaissance tool or often known as Subfinder. It is a subdomain enumerator to find subdomains from the main domain of the target we are targeting.">
+<title>Day 5 Penetration Testing Challenge &#34;Reconnaissance PART 1&#34;</title>
+
+<link rel='canonical' href='http://localhost:1313/p/day-5-penetration-testing-challenge-reconnaissance-part-1/'>
+
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Day 5 Penetration Testing Challenge \"Reconnaissance PART 1\"">
+<meta property='og:description' content=" is a reconnaissance tool or often known as Subfinder. It is a subdomain enumerator to find subdomains from the main domain of the target we are targeting.">
+<meta property='og:url' content='http://localhost:1313/p/day-5-penetration-testing-challenge-reconnaissance-part-1/'>
+<meta property='og:site_name' content='santricyber'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='hacking' /><meta property='article:tag' content='information-gathering' /><meta property='article:tag' content='ethical-hacking' /><meta property='article:tag' content='Pentester-SERIES' /><meta property='article:published_time' content='2024-06-29T22:46:04&#43;07:00'/><meta property='article:modified_time' content='2024-06-29T22:46:04&#43;07:00'/><meta property='og:image' content='http://localhost:1313/p/day-5-penetration-testing-challenge-reconnaissance-part-1/day5.png' />
+<meta name="twitter:title" content="Day 5 Penetration Testing Challenge \"Reconnaissance PART 1\"">
+<meta name="twitter:description" content=" is a reconnaissance tool or often known as Subfinder. It is a subdomain enumerator to find subdomains from the main domain of the target we are targeting."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/p/day-5-penetration-testing-challenge-reconnaissance-part-1/day5.png' />
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6J105MLJ1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6J105MLJ1T');
+</script>
+
+
+
+<script type="text/javascript" >
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(94293014, "init", {
+       clickmap:true,
+       trackLinks:true,
+       accurateTrackBounce:true,
+       webvisor:true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/94293014" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+     
+
+
+
+<meta name="google-adsense-account" content="ca-pub-5756387925386548">
+
+
+
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KXRL7SV');</script>
+  
+
+
+  
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  
+
+
+</head><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6J105MLJ1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6J105MLJ1T');
+</script>
+
+
+
+<script type="text/javascript" >
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(94293014, "init", {
+       clickmap:true,
+       trackLinks:true,
+       accurateTrackBounce:true,
+       webvisor:true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/94293014" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+     
+
+
+
+<meta name="google-adsense-account" content="ca-pub-5756387925386548">
+
+
+
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KXRL7SV');</script>
+  
+
+
+  
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  
+
+
+</head>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fixicon_hu4f762022727ce2ffb71d8d713598f942_3315_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">📚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">santricyber</a></h1>
+            <h2 class="site-description">Let&#39;s talk about Linux, Code Program and Cyber Security with me</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/kodebaper/'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.instagram.com/santricyber/'
+                        target="_blank"
+                        title="instagram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:dimas@santricyber.com'
+                        target="_blank"
+                        title="mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/" selected>English</option>
+                                
+                                    <option value="http://localhost:1313/zh-cn/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/day-5-penetration-testing-challenge-reconnaissance-part-1/">
+                <img src="/p/day-5-penetration-testing-challenge-reconnaissance-part-1/day5_hu7b32f3fa3485f384ecc8e61fd0a869e5_45056_800x0_resize_box_3.png"
+                        srcset="/p/day-5-penetration-testing-challenge-reconnaissance-part-1/day5_hu7b32f3fa3485f384ecc8e61fd0a869e5_45056_800x0_resize_box_3.png 800w, /p/day-5-penetration-testing-challenge-reconnaissance-part-1/day5_hu7b32f3fa3485f384ecc8e61fd0a869e5_45056_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Day 5 Penetration Testing Challenge &#34;Reconnaissance PART 1&#34;" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/cyber-security/" >
+                Cyber-Security
+            </a>
+        
+            <a href="/categories/redteam/" >
+                Redteam
+            </a>
+        
+            <a href="/categories/pentester-series/" >
+                Pentester-SERIES
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/day-5-penetration-testing-challenge-reconnaissance-part-1/">Day 5 Penetration Testing Challenge &#34;Reconnaissance PART 1&#34;</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+             is a reconnaissance tool or often known as Subfinder. It is a subdomain enumerator to find subdomains from the main domain of the target we are targeting.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 29, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Discussing the Reconnaissance phase is an introductory phase to getting started with penetration testing using the Subfinder and Dirsearch tools. For this, I need to explain the understanding of these two tools</p>
+<ol>
+<li><strong>Subfinder</strong>
+is a reconnaissance tool or often known as Subfinder. It is a subdomain enumerator to find subdomains from the main domain of the target we are targeting.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌──(infosec㉿infosec)-[~]
+</span></span><span class="line"><span class="cl">└─$ subfinder -d mytarget.com -o report.txt
+</span></span><span class="line"><span class="cl">[INF] Detected old /home/infosec/.config/subfinder/config.yaml config file, trying to migrate providers to /home/infosec/.config/subfinder/provider-config.yaml
+</span></span><span class="line"><span class="cl">[INF] Migration successful from /home/infosec/.config/subfinder/config.yaml to /home/infosec/.config/subfinder/provider-config.yaml.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">               __    _____           __         
+</span></span><span class="line"><span class="cl">   _______  __/ /_  / __(_)___  ____/ /__  _____
+</span></span><span class="line"><span class="cl">  / ___/ / / / __ \/ /_/ / __ \/ __  / _ \/ ___/
+</span></span><span class="line"><span class="cl"> (__  ) /_/ / /_/ / __/ / / / / /_/ /  __/ /    
+</span></span><span class="line"><span class="cl">/____/\__,_/_.___/_/ /_/_/ /_/\__,_/\___/_/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                projectdiscovery.io
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[INF] Current subfinder version v2.6.0 (outdated)
+</span></span><span class="line"><span class="cl">[INF] Loading provider config from /home/infosec/.config/subfinder/provider-config.yaml
+</span></span><span class="line"><span class="cl">[INF] Enumerating subdomains for mytarget.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I did not include the target domain that I tried for privacy reasons, for that I illustrated the main target domain with <strong>mytarget.com</strong> here we will get results where the main target domain has subdomains according to what it has. With this tool we can see how many subdomains there are.</p>
+<p>If you look at the command that I typed there is the <strong>-o report.txt</strong> parameter, this means that -o is the output that will be generated so that I can save it into the <strong>report.txt</strong> file, we can use this to make it easier to create a scanning report for analysis at a later date.</p>
+<p>but after we do scanning with the command <strong>$ subfinder -d mytarget.com -o report.txt</strong> all subdomains will be scanned by the subfinder application without us knowing whether the subdomain is active or not, for that in the next article I will write an article on how to use a tool to select which subdomains are active and inactive. The tool is called <strong>HTTPX TOOL</strong></p>
+<ol start="2">
+<li>Tools for scanning directories on a target website using <strong>DIRSEARCH</strong>
+This tool will make it easier for us to find any directories including sensitive files or not from a target that we will test for weaknesses, besides being open source this tool is also easy to understand and use by even a beginner. And if a target is very vulnerable we can get sensitive files from the system.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="err">┌──</span><span class="p">(</span><span class="n">infosec</span><span class="err">㉿</span><span class="n">infosec</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="o">~</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="err">└─</span><span class="o">$</span> <span class="n">dirsearch</span> <span class="o">-</span><span class="n">u</span> <span class="n">mytarget</span><span class="o">.</span><span class="n">com</span>            
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">_</span><span class="o">|.</span> <span class="n">_</span> <span class="n">_</span>  <span class="n">_</span>  <span class="n">_</span>  <span class="n">_</span> <span class="n">_</span><span class="o">|</span><span class="n">_</span>    <span class="n">v0</span><span class="o">.</span><span class="mf">4.3</span>                                                                                                                             
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="n">_</span><span class="o">|||</span> <span class="n">_</span><span class="p">)</span> <span class="p">(</span><span class="o">/</span><span class="n">_</span><span class="p">(</span><span class="n">_</span><span class="o">||</span> <span class="p">(</span><span class="n">_</span><span class="o">|</span> <span class="p">)</span>                                                                                                                                      
+</span></span><span class="line"><span class="cl">                                                                                                                                                             
+</span></span><span class="line"><span class="cl"><span class="n">Extensions</span><span class="p">:</span> <span class="n">php</span><span class="p">,</span> <span class="n">aspx</span><span class="p">,</span> <span class="n">jsp</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">js</span> <span class="o">|</span> <span class="n">HTTP</span> <span class="n">method</span><span class="p">:</span> <span class="n">GET</span> <span class="o">|</span> <span class="n">Threads</span><span class="p">:</span> <span class="mi">25</span> <span class="o">|</span> <span class="n">Wordlist</span> <span class="n">size</span><span class="p">:</span> <span class="mi">11460</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Output</span> <span class="ne">File</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">infosec</span><span class="o">/</span><span class="n">reports</span><span class="o">/</span><span class="n">_mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">_24</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">10</span><span class="n">_15</span><span class="o">-</span><span class="mi">50</span><span class="o">-</span><span class="mf">14.</span><span class="n">txt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Target</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span> <span class="n">Starting</span><span class="p">:</span>                                                                                                                                         
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/!.</span><span class="n">gitignore</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/!.</span><span class="n">htaccess</span>                                       
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/!.</span><span class="n">htpasswd</span>                                       
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/+</span><span class="n">CSCOT</span><span class="o">+/</span><span class="n">oem</span>                                      
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/+</span><span class="n">CSCOE</span><span class="o">+/</span><span class="n">session_password</span><span class="o">.</span><span class="n">html</span>                    
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/+</span><span class="n">CSCOE</span><span class="o">+/</span><span class="n">logon</span><span class="o">.</span><span class="n">html</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/+</span><span class="n">CSCOT</span><span class="o">+/</span><span class="n">oem</span><span class="o">-</span><span class="n">customization</span><span class="err">?</span><span class="n">app</span><span class="o">=</span><span class="n">AnyConnect</span><span class="o">&amp;</span><span class="n">type</span><span class="o">=</span><span class="n">oem</span><span class="o">&amp;</span><span class="n">platform</span><span class="o">=..&amp;</span><span class="n">resource</span><span class="o">-</span><span class="n">type</span><span class="o">=..&amp;</span><span class="n">name</span><span class="o">=%</span><span class="mi">2</span><span class="n">bCSCOE</span><span class="o">%</span><span class="mi">2</span><span class="n">b</span><span class="o">/</span><span class="n">portal_inc</span><span class="o">.</span><span class="n">lua</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/+</span><span class="n">CSCOT</span><span class="o">+/</span><span class="n">translation</span>                              
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/+</span><span class="n">CSCOT</span><span class="o">+/</span><span class="n">translation</span><span class="o">-</span><span class="n">table</span><span class="err">?</span><span class="n">type</span><span class="o">=</span><span class="n">mst</span><span class="o">&amp;</span><span class="n">textdomain</span><span class="o">=/%</span><span class="mi">2</span><span class="n">bCSCOE</span><span class="o">%</span><span class="mi">2</span><span class="n">b</span><span class="o">/</span><span class="n">portal_inc</span><span class="o">.</span><span class="n">lua</span><span class="o">&amp;</span><span class="n">default</span><span class="o">-</span><span class="n">language</span><span class="o">&amp;</span><span class="n">lang</span><span class="o">=../</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">18</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">config</span><span class="o">/</span><span class="n">psi</span><span class="o">+/</span><span class="n">profiles</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">accounts</span><span class="o">.</span><span class="n">xml</span>       
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">18</span><span class="p">]</span> <span class="mi">200</span> <span class="o">-</span>    <span class="mi">8</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">DS_Store</span>                                        
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">ht_wsr</span><span class="o">.</span><span class="n">txt</span>                                      
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess</span><span class="o">.</span><span class="n">bak1</span>                                   
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess</span><span class="o">.</span><span class="n">orig</span>                                   
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess_orig</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess_extra</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccessBAK</span>                                     
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess</span><span class="o">.</span><span class="n">save</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccessOLD2</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccessOLD</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess</span><span class="o">.</span><span class="n">sample</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htaccess_sc</span>                                     
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htm</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">html</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htpasswd_test</span>                                   
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">httr</span><span class="o">-</span><span class="n">oauth</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/.</span><span class="n">htpasswds</span>                                       
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">idea</span><span class="o">/</span><span class="n">workspace</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span>                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">idea</span><span class="o">/</span><span class="n">workspace</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">idea</span><span class="o">/</span><span class="n">workspace</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span>                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">idea</span><span class="o">/</span><span class="n">workspace</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span>                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">idea</span><span class="o">/</span><span class="n">workspace</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/.</span><span class="n">idea</span><span class="o">/</span><span class="n">workspace</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span>                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">login</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">admin</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="p">;</span><span class="n">json</span><span class="o">/</span>                                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="p">;</span><span class="n">admin</span><span class="o">/</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">json</span>                                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="p">;</span><span class="n">login</span><span class="o">/</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="err">@</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="o">..</span>\<span class="n">etc</span>\<span class="n">passwd</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">28</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">a</span><span class="o">%</span><span class="mi">5</span><span class="n">c</span><span class="o">.</span><span class="n">aspx</span>                                        
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">beans</span>                                 
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">configprops</span>                           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">conditions</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">auditLog</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">caches</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">configurationMetadata</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">features</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">exportRegisteredServices</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">events</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">auditevents</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">dump</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">env</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">health</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">healthcheck</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">flyway</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">heapdump</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">integrationgraph</span>                      
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">liquibase</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">info</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">prometheus</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">sessions</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">logfile</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">trace</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">jolokia</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">mappings</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">loggers</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">releaseAttributes</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">scheduledtasks</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">metrics</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">loggingConfig</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">refresh</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">sso</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">httptrace</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">springWebflow</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">ssoSessions</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">registeredServices</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">threaddump</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">status</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">shutdown</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">29</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">statistics</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">actuator</span><span class="o">/</span><span class="p">;</span><span class="o">/</span><span class="n">resolveAttributes</span>                     
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">31</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">admin</span><span class="o">/%</span><span class="mi">3</span><span class="n">bindex</span><span class="o">/</span>                                  
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">34</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">admin</span><span class="p">;</span><span class="o">/</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">34</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">Admin</span><span class="p">;</span><span class="o">/</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">45</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">application</span>                                      
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">46</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">application</span><span class="o">/</span><span class="n">cache</span><span class="o">/</span>                               
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">46</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">application</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">application</span><span class="o">.</span><span class="n">ini</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">46</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">application</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">46</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">application</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span>                                
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">46</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">assets</span><span class="o">/</span>                                          
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">46</span><span class="p">]</span> <span class="mi">301</span> <span class="o">-</span>  <span class="mi">258</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">assets</span>  <span class="o">-&gt;</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">53</span><span class="p">]</span> <span class="mi">200</span> <span class="o">-</span>  <span class="mi">625</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">composer</span><span class="o">.</span><span class="n">json</span>                                    
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">53</span><span class="p">]</span> <span class="mi">200</span> <span class="o">-</span>   <span class="mi">47</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">composer</span><span class="o">.</span><span class="n">lock</span>                                    
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">55</span><span class="p">]</span> <span class="mi">200</span> <span class="o">-</span>    <span class="mi">6</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">contributing</span><span class="o">.</span><span class="n">md</span>                                  
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">57</span><span class="p">]</span> <span class="mi">302</span> <span class="o">-</span>    <span class="mi">0</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">dashboard</span>  <span class="o">-&gt;</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">login</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">58</span><span class="p">]</span> <span class="mi">302</span> <span class="o">-</span>    <span class="mi">0</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">dashboard</span><span class="o">/</span>  <span class="o">-&gt;</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">login</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">php</span><span class="p">::</span><span class="o">$</span><span class="n">DATA</span>                                 
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jkstatus</span><span class="p">;</span>                                        
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">help</span><span class="o">/*</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">jfrStart</span><span class="o">/</span><span class="n">filename</span><span class="o">=!/</span><span class="n">tmp</span><span class="o">!/</span><span class="n">foo</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">vmLog</span><span class="o">/</span><span class="n">disable</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">jvmtiAgentLoad</span><span class="o">/!/</span><span class="n">etc</span><span class="o">!/</span><span class="n">passwd</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">read</span><span class="o">/</span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span><span class="n">type</span><span class="o">=*/</span><span class="n">HeapMemoryUsage</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">Memory</span><span class="o">/</span><span class="n">gc</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">vmLog</span><span class="o">/</span><span class="n">output</span><span class="o">=!/</span><span class="n">tmp</span><span class="o">!/</span><span class="n">pwned</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">vmSystemProperties</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">com</span><span class="o">.</span><span class="n">sun</span><span class="o">.</span><span class="n">management</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">DiagnosticCommand</span><span class="o">/</span><span class="n">compilerDirectivesAdd</span><span class="o">/!/</span><span class="n">etc</span><span class="o">!/</span><span class="n">passwd</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">search</span><span class="o">/*</span><span class="p">:</span><span class="n">j2eeType</span><span class="o">=</span><span class="n">J2EEServer</span><span class="p">,</span><span class="o">*</span>           
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">write</span><span class="o">/</span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">Memory</span><span class="o">/</span><span class="n">Verbose</span><span class="o">/</span><span class="bp">true</span> 
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">jolokia</span><span class="o">/</span><span class="n">read</span><span class="o">/</span><span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span><span class="n">type</span><span class="o">=</span><span class="n">Memory</span><span class="o">/</span><span class="n">HeapMemoryUsage</span><span class="o">/</span><span class="n">used</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="mi">200</span> <span class="o">-</span>  <span class="mi">689</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">license</span><span class="o">.</span><span class="n">txt</span>                                      
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span> <span class="mi">302</span> <span class="o">-</span>    <span class="mi">0</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">logout</span>  <span class="o">-&gt;</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">login</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">18</span><span class="p">]</span> <span class="mi">302</span> <span class="o">-</span>    <span class="mi">0</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">logout</span><span class="o">/</span>  <span class="o">-&gt;</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">mytarget</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">login</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">24</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">New</span><span class="o">%</span><span class="mi">20</span><span class="n">folder</span><span class="o">%</span><span class="mi">20</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                               
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">phpmyadmin</span><span class="o">!!</span>                                     
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">41</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">secure</span><span class="o">/</span><span class="n">ConfigurePortalPages</span><span class="o">!</span><span class="n">default</span><span class="o">.</span><span class="n">jspa</span><span class="err">?</span><span class="n">view</span><span class="o">=</span><span class="n">popular</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">41</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">secure</span><span class="o">/</span><span class="n">ContactAdministrators</span><span class="o">!</span><span class="n">default</span><span class="o">.</span><span class="n">jspa</span>        
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">41</span><span class="p">]</span> <span class="mi">400</span> <span class="o">-</span>    <span class="mi">1</span><span class="n">KB</span> <span class="o">-</span> <span class="o">/</span><span class="n">secure</span><span class="o">/</span><span class="n">QueryComponent</span><span class="o">!</span><span class="n">Default</span><span class="o">.</span><span class="n">jspa</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">42</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">status</span>                                    
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">42</span><span class="p">]</span> <span class="mi">403</span> <span class="o">-</span>  <span class="mi">199</span><span class="n">B</span>  <span class="o">-</span> <span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">status</span><span class="o">/</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This tool will provide clear information from a target website, it will show what directory information is in it that we have successfully scanned using the dirsearch tool, along with the Response Code that we can do to take the next step.</p>
+<p>These 2 tools are a small example in the reconnaissance process in doing ethical hacking, I hope that anyone who learns this tool will learn more deeply in using this tool, because there are still very many functions and commands in its use.</p>
+<p>See you in the next article.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hacking/">Hacking</a>
+        
+            <a href="/tags/information-gathering/">Information-Gathering</a>
+        
+            <a href="/tags/ethical-hacking/">Ethical-Hacking</a>
+        
+            <a href="/tags/pentester-series/">Pentester-SERIES</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under santricyber</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/day-4-penetration-testing-challenge-pentest-notes/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-4-penetration-testing-challenge-pentest-notes/day4.da0f887fb430af1787bbe60b889f77d7_hu7b32f3fa3485f384ecc8e61fd0a869e5_44204_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 4 Penetration Testing Challenge &#34;Pentest-Notes&#34;"
+                        
+                        data-hash="md5-2g&#43;If7QwrxeHu&#43;YLiJ931w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 4 Penetration Testing Challenge &#34;Pentest-Notes&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-3-penetration-testing-challenge-networking-fundamental/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-3-penetration-testing-challenge-networking-fundamental/day3.2afaa6b63689b11affbf3284485d9411_hu7b32f3fa3485f384ecc8e61fd0a869e5_45531_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 3 Penetration Testing Challenge &#34;Networking Fundamental&#34;"
+                        
+                        data-hash="md5-KvqmtjaJsRr/vzKESF2UEQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 3 Penetration Testing Challenge &#34;Networking Fundamental&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-2-penetration-testing-challenge-cyber-security-basics-practice/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-2-penetration-testing-challenge-cyber-security-basics-practice/day2.3a681e9323092d6257ad96afd7d8a7a9_hu7b32f3fa3485f384ecc8e61fd0a869e5_45119_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 2 Penetration Testing Challenge &#34;cyber security basics practice&#34;"
+                        
+                        data-hash="md5-OmgekyMJLWJXrZav19inqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 2 Penetration Testing Challenge &#34;cyber security basics practice&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-1-penetration-testing-challenge-cyber-security-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-1-penetration-testing-challenge-cyber-security-basic/day1.ba92f28e352436bef89593757712b02a_hu7b32f3fa3485f384ecc8e61fd0a869e5_43988_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 1 Penetration Testing Challenge &#34;Cyber Security Basic&#34;"
+                        
+                        data-hash="md5-upLyjjUkNr74lZN1dxKwKg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 1 Penetration Testing Challenge &#34;Cyber Security Basic&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/my-explanation-in-the-articles-of-the-cyber-security-hacking-series/">
+        
+        
+            <div class="article-image">
+                <img src="/p/my-explanation-in-the-articles-of-the-cyber-security-hacking-series/statment.40dd77e5a3ddc77c4a9ad2cfd10ca1b4_hue1811a1debe5ea9522643ac8ed82e7a0_66721_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post My explanation in the articles of the Cyber Security Hacking Series"
+                        
+                        data-hash="md5-QN135aPdx3xKmtLP0QyhtA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">My explanation in the articles of the Cyber Security Hacking Series</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "santricyber" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 santricyber
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+        
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5756387925386548"
+         data-ad-slot="6471855953"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    </body>
+</html>

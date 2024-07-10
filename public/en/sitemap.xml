@@ -20,11 +20,8 @@
                 href="http://localhost:1313/"
                 />
   </url><url>
-    <loc>http://localhost:1313/p/advanced-recon-for-cyber-warriors/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -42,22 +39,28 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/cyber-security/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/day-5-penetration-testing-challenge-reconnaissance-part-1/</loc>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/ethical-hacking/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/hacking/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/information-gathering/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/pentester/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <loc>http://localhost:1313/tags/pentester-series/</loc>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/pentester-series/</loc>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -69,14 +72,11 @@
                 href="http://localhost:1313/post/"
                 />
   </url><url>
-    <loc>http://localhost:1313/categories/recon/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/categories/redteam/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+    <lastmod>2024-06-29T22:46:04+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -92,6 +92,27 @@
                 hreflang="en"
                 href="http://localhost:1313/tags/"
                 />
+  </url><url>
+    <loc>http://localhost:1313/p/day-4-penetration-testing-challenge-pentest-notes/</loc>
+    <lastmod>2024-06-29T22:43:31+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/day-3-penetration-testing-challenge-networking-fundamental/</loc>
+    <lastmod>2024-06-29T22:41:38+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/day-2-penetration-testing-challenge-cyber-security-basics-practice/</loc>
+    <lastmod>2024-06-29T22:39:59+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/day-1-penetration-testing-challenge-cyber-security-basic/</loc>
+    <lastmod>2024-06-29T22:23:41+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/my-explanation-in-the-articles-of-the-cyber-security-hacking-series/</loc>
+    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/pentester/</loc>
+    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/recon/</loc>
+    <lastmod>2024-06-26T11:32:36+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/bloging/</loc>
     <lastmod>2024-06-26T11:27:01+07:00</lastmod>

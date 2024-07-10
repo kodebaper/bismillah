@@ -2,6 +2,7 @@
 <html lang="{{ .Site.LanguageCode }}" dir="{{ default `ltr` .Language.LanguageDirection }}">
     <head>
         {{- partial "head/head.html" . -}}
+        {{- partial "head/google_analytics.html" . -}}
         {{- block "head" . -}}{{ end }}
     </head>
     <body class="{{ block `body-class` . }}{{ end }}">
@@ -24,5 +25,23 @@
             </main>
         </div>
         {{ partial "footer/include.html" . }}
+
+        <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+    <!-- Ads-templateone -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5756387925386548"
+         data-ad-slot="6471855953"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     </body>
 </html>

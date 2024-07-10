@@ -55,6 +55,7 @@ page = "/:slug/"
 mainSections = [ "post" ]
 featuredImageField = "image"
 rssFullContent = true
+favicon = true
 
   [params.footer]
   since = 2_020
@@ -167,18 +168,26 @@ main = [ ]
   [[menu.social]]
   identifier = "github"
   name = "GitHub"
-  url = "https://github.com/CaiJimmy/hugo-theme-stack"
+  url = "https://github.com/kodebaper/"
 
     [menu.social.params]
     icon = "brand-github"
 
   [[menu.social]]
-  identifier = "twitter"
-  name = "Twitter"
-  url = "https://twitter.com"
+  identifier = "mail"
+  name = "mail"
+  url = "mailto:dimas@santricyber.com"
 
     [menu.social.params]
-    icon = "brand-twitter"
+    icon = "messages"
+
+  [[menu.social]]
+  identifier = "instagram"
+  name = "instagram"
+  url = "https://www.instagram.com/santricyber/"
+
+    [menu.social.params]
+    icon = "instagram"
 
 [related]
 includeNewer = true
