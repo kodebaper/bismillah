@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Main Topics Pada pembahasan di artikel ini saya akan mencatat beberapa perintah umum dalam melakukan reconnaissance menggunakan tools Subfinder, Dirsearch, dan HTTPX-Toolkit tentu dalam penggunaan tools ini sangat banyak perintah yang bisa di gunakan dan saya tidak akan membahas secara keseluruhan atau lebih lengkap. Saya akan membagikan beberapa baris perintah yang sering saya gunakan. Namun sebelum itu, sesuai dengan artikel sebelummnya saya akan membagikan tips agar subdomain yang sudah kita dapatkan dari hasil scan menggunakan tools Subfinder dapat kita ketahui subdomain mana saja yang masih aktih.">
 <title>Day 6 Penetration Testing Challenge &#34;Reconnaissance PART 2&#34;</title>
 
 <link rel='canonical' href='http://localhost:1313/p/day-6-penetration-testing-challenge-reconnaissance-part-2/'>
 
 <link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Day 6 Penetration Testing Challenge \"Reconnaissance PART 2\"">
-<meta property='og:description' content="">
+<meta property='og:description' content="Main Topics Pada pembahasan di artikel ini saya akan mencatat beberapa perintah umum dalam melakukan reconnaissance menggunakan tools Subfinder, Dirsearch, dan HTTPX-Toolkit tentu dalam penggunaan tools ini sangat banyak perintah yang bisa di gunakan dan saya tidak akan membahas secara keseluruhan atau lebih lengkap. Saya akan membagikan beberapa baris perintah yang sering saya gunakan. Namun sebelum itu, sesuai dengan artikel sebelummnya saya akan membagikan tips agar subdomain yang sudah kita dapatkan dari hasil scan menggunakan tools Subfinder dapat kita ketahui subdomain mana saja yang masih aktih.">
 <meta property='og:url' content='http://localhost:1313/p/day-6-penetration-testing-challenge-reconnaissance-part-2/'>
 <meta property='og:site_name' content='santricyber'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='hacking' /><meta property='article:tag' content='information-gathering' /><meta property='article:tag' content='ethical-hacking' /><meta property='article:tag' content='Pentester-SERIES' /><meta property='article:published_time' content='2024-06-29T22:48:46&#43;07:00'/><meta property='article:modified_time' content='2024-06-29T22:48:46&#43;07:00'/><meta property='og:image' content='http://localhost:1313/p/day-6-penetration-testing-challenge-reconnaissance-part-2/day6.png' />
 <meta name="twitter:title" content="Day 6 Penetration Testing Challenge \"Reconnaissance PART 2\"">
-<meta name="twitter:description" content=""><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Main Topics Pada pembahasan di artikel ini saya akan mencatat beberapa perintah umum dalam melakukan reconnaissance menggunakan tools Subfinder, Dirsearch, dan HTTPX-Toolkit tentu dalam penggunaan tools ini sangat banyak perintah yang bisa di gunakan dan saya tidak akan membahas secara keseluruhan atau lebih lengkap. Saya akan membagikan beberapa baris perintah yang sering saya gunakan. Namun sebelum itu, sesuai dengan artikel sebelummnya saya akan membagikan tips agar subdomain yang sudah kita dapatkan dari hasil scan menggunakan tools Subfinder dapat kita ketahui subdomain mana saja yang masih aktih."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/p/day-6-penetration-testing-challenge-reconnaissance-part-2/day6.png' />
 
     <link rel="icon" type="image/png" href="img/favicon.png">
@@ -111,6 +111,9 @@
      crossorigin="anonymous"></script>
      
 
+<script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
 
 
 <meta name="google-adsense-account" content="ca-pub-5756387925386548">
@@ -406,7 +409,44 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#main-topics">Main Topics</a></li>
+        <li><a href="#temukan-subdomain-aktif">Temukan Subdomain Aktif</a></li>
+        <li><a href="#baris-perintah-dirsearch">Baris Perintah Dirsearch</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="has-image main-article">
@@ -482,7 +522,7 @@
 
 
                 <time class="article-time--reading">
-                    0 minute read
+                    1 minute read
                 </time>
             </div>
         
@@ -497,7 +537,14 @@
     <section class="article-content">
     
     
-    
+    <h3 id="main-topics">Main Topics
+</h3><p>Pada pembahasan di artikel ini saya akan mencatat beberapa perintah umum dalam melakukan reconnaissance menggunakan <strong>tools Subfinder, Dirsearch, dan HTTPX-Toolkit</strong> tentu dalam penggunaan tools ini sangat banyak perintah yang bisa di gunakan dan saya tidak akan membahas secara keseluruhan atau lebih lengkap. Saya akan membagikan beberapa baris perintah yang sering saya gunakan.</p>
+<p>Namun sebelum itu, sesuai dengan artikel sebelummnya saya akan membagikan tips agar subdomain yang sudah kita dapatkan dari hasil scan menggunakan <strong>tools Subfinder</strong> dapat kita ketahui subdomain mana saja yang masih aktih. Caranya adalah sebagai berikut.</p>
+<h3 id="temukan-subdomain-aktif">Temukan Subdomain Aktif
+</h3><p>Menemukan subdomain yang aktif bisa menggunakan tools HTTPX dengan menggunakan perintah berikut</p>
+<h3 id="baris-perintah-dirsearch">Baris Perintah Dirsearch
+</h3><p>Untuk mulai menggunakan tools Dirsearch kita bisa gunakan tools ini dalam proses Reconnaissance</p>
+
 </section>
 
 
@@ -545,78 +592,6 @@
             
                 
 <article class="has-image">
-    <a href="/p/day-9-penetration-testing-challenge-exploitation-part-2/">
-        
-        
-            <div class="article-image">
-                <img src="/p/day-9-penetration-testing-challenge-exploitation-part-2/day9.1490017bf60dde5b987d7c4b2042966e_hu7b32f3fa3485f384ecc8e61fd0a869e5_45814_250x150_fill_box_smart1_3.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Day 9 Penetration Testing Challenge &#34;exploitation PART 2&#34;"
-                        
-                        data-hash="md5-FJABe/YN3luYfXxLIEKWbg==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Day 9 Penetration Testing Challenge &#34;exploitation PART 2&#34;</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/day-8-penetration-testing-challenge-exploitation-part-1/">
-        
-        
-            <div class="article-image">
-                <img src="/p/day-8-penetration-testing-challenge-exploitation-part-1/day8.faaab3d20b4018de236c62c58f668fed_hu7b32f3fa3485f384ecc8e61fd0a869e5_46107_250x150_fill_box_smart1_3.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Day 8 Penetration Testing Challenge &#34;exploitation PART 1&#34;"
-                        
-                        data-hash="md5-&#43;qqz0gtAGN4jbGLFj2aP7Q==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Day 8 Penetration Testing Challenge &#34;exploitation PART 1&#34;</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/day-7-penetration-testing-challenge-reconnaissance-part-3/">
-        
-        
-            <div class="article-image">
-                <img src="/p/day-7-penetration-testing-challenge-reconnaissance-part-3/day7.0a1c774e79c82fd04c449388624de46f_hu7b32f3fa3485f384ecc8e61fd0a869e5_44588_250x150_fill_box_smart1_3.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Day 7 Penetration Testing Challenge &#34;Reconnaissance PART 3&#34;"
-                        
-                        data-hash="md5-Chx3TnnIL9BMRJOIYk3kbw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Day 7 Penetration Testing Challenge &#34;Reconnaissance PART 3&#34;</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
     <a href="/p/day-5-penetration-testing-challenge-reconnaissance-part-1/">
         
         
@@ -658,6 +633,78 @@
 
         <div class="article-details">
             <h2 class="article-title">Day 4 Penetration Testing Challenge &#34;Pentest-Notes&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-3-penetration-testing-challenge-networking-fundamental/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-3-penetration-testing-challenge-networking-fundamental/day3.2afaa6b63689b11affbf3284485d9411_hu7b32f3fa3485f384ecc8e61fd0a869e5_45531_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 3 Penetration Testing Challenge &#34;Networking Fundamental&#34;"
+                        
+                        data-hash="md5-KvqmtjaJsRr/vzKESF2UEQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 3 Penetration Testing Challenge &#34;Networking Fundamental&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-2-penetration-testing-challenge-cyber-security-basics-practice/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-2-penetration-testing-challenge-cyber-security-basics-practice/day2.3a681e9323092d6257ad96afd7d8a7a9_hu7b32f3fa3485f384ecc8e61fd0a869e5_45119_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 2 Penetration Testing Challenge &#34;cyber security basics practice&#34;"
+                        
+                        data-hash="md5-OmgekyMJLWJXrZav19inqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 2 Penetration Testing Challenge &#34;cyber security basics practice&#34;</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-1-penetration-testing-challenge-cyber-security-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-1-penetration-testing-challenge-cyber-security-basic/day1.ba92f28e352436bef89593757712b02a_hu7b32f3fa3485f384ecc8e61fd0a869e5_43988_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 1 Penetration Testing Challenge &#34;Cyber Security Basic&#34;"
+                        
+                        data-hash="md5-upLyjjUkNr74lZN1dxKwKg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 1 Penetration Testing Challenge &#34;Cyber Security Basic&#34;</h2>
         </div>
     </a>
 </article>
@@ -844,6 +891,11 @@
          data-full-width-responsive="true"></ins>
     <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    
+    <script async custom-element="amp-auto-ads"
+    src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
     </body>
 </html>

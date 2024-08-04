@@ -18,9 +18,11 @@ aliases = ["hacking-series"]
 image = "day5.png"
 +++
 
+### Main Topics
+
 Discussing the Reconnaissance phase is an introductory phase to getting started with penetration testing using the Subfinder and Dirsearch tools. For this, I need to explain the understanding of these two tools
 
-1. **Subfinder** 
+### 1. **Subfinder** 
     is a reconnaissance tool or often known as Subfinder. It is a subdomain enumerator to find subdomains from the main domain of the target we are targeting.
 
 ```
@@ -49,7 +51,7 @@ If you look at the command that I typed there is the **-o report.txt** parameter
 
 but after we do scanning with the command **$ subfinder -d mytarget.com -o report.txt** all subdomains will be scanned by the subfinder application without us knowing whether the subdomain is active or not, for that in the next article I will write an article on how to use a tool to select which subdomains are active and inactive. The tool is called **HTTPX TOOL**
 
-2. Tools for scanning directories on a target website using **DIRSEARCH**
+### 2. Tools for scanning directories on a target website using **DIRSEARCH**
     This tool will make it easier for us to find any directories including sensitive files or not from a target that we will test for weaknesses, besides being open source this tool is also easy to understand and use by even a beginner. And if a target is very vulnerable we can get sensitive files from the system.
 
 ```
