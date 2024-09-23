@@ -9,6 +9,7 @@ tags = [
     "Pentester-SERIES",
 ]
 categories = [
+    "OSINT",
     "cyber-security",
     "redteam",
     "Pentester-SERIES",
