@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -21,7 +21,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -39,25 +39,25 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/cyber-security/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/p/day-10-hacking-lab-preparation/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <loc>http://localhost:1313/p/day-11-easy-burpsuite-configuration-with-external-browser/</loc>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/ethical-hacking/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/information-gathering/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/pentester-series/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/pentester-series/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -70,10 +70,10 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/redteam/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
+    <lastmod>2024-09-25T11:52:27+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -89,6 +89,9 @@
                 hreflang="en"
                 href="http://localhost:1313/tags/"
                 />
+  </url><url>
+    <loc>http://localhost:1313/p/day-10-hacking-lab-preparation/</loc>
+    <lastmod>2024-09-09T21:47:11+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/p/day-9-open-source-intelligence/</loc>
     <lastmod>2024-09-04T10:20:13+07:00</lastmod>

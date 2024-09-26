@@ -82,6 +82,3 @@ The following is the Lab view of the VulnLab that we run
 ![IDOR-LABs](/post/images/idor.png)
 
 Good luck!
-
-
-Translated with DeepL.com (free version)
