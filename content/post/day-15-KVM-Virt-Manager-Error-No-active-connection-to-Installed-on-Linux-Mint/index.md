@@ -26,4 +26,8 @@ When I try to install a new virtual machine in virt-manager Linux Mint virtualiz
 $ sudo chown $USER:$USER /var/run/libvirt/libvirt-sock
 
 ``````
-afrer running this command, all was fine. Good luck!
+This is a solution how to copy and paste from the host to a KVM guest, just execute this command, after done then you can reboot.
+
+$ sudo apt install spice-vdagent
+
+After running this command all was fine. Good luck!
